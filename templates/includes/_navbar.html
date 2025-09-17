@@ -1,0 +1,70 @@
+<nav class="bg-pink-600 text-white shadow-md sticky top-0 z-50">
+  <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+    <!-- Logo -->
+    <a href="{{ url_for('index') }}" class="text-xl font-bold flex items-center gap-1">
+      Rutika's Bakery 
+    </a>
+
+    <!-- Desktop Links -->
+    <div class="hidden md:flex items-center space-x-4">
+      <a href="{{ url_for('menu') }}" class="px-3 py-2 rounded hover:bg-pink-700 transition">Menu</a>
+
+      <!-- Cart Button -->
+      <button id="view-cart-btn" class="relative px-3 py-2 rounded hover:bg-pink-700 transition">
+        Cart
+        <span id="cart-count"
+              class="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+          0
+        </span>
+      </button>
+
+      {% if session.user %}
+        <a href="{{ url_for('user_dashboard') }}" class="px-3 py-2 rounded hover:bg-pink-700 transition">Dashboard</a>
+        <a href="{{ url_for('profile') }}" class="px-3 py-2 rounded hover:bg-pink-700 transition">Profile</a>
+        <a href="{{ url_for('logout') }}" class="px-3 py-2 rounded hover:bg-pink-700 transition">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="bg-white text-pink-600 font-semibold px-4 py-2 rounded-full hover:bg-pink-100 transition">
+          Login
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Hamburger (Mobile) -->
+    <button id="hamburger-btn" class="md:hidden text-2xl focus:outline-none">
+      <i class='bx bx-menu'></i>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden flex flex-col bg-pink-700 text-white px-6 py-4 space-y-3">
+    <a href="{{ url_for('menu') }}" class="block px-3 py-2 rounded hover:bg-pink-800">Menu</a>
+
+    <button id="view-cart-btn-mobile" class="relative block px-3 py-2 rounded hover:bg-pink-800">
+      Cart
+      <span id="cart-count-mobile"
+            class="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+        0
+      </span>
+    </button>
+
+    {% if session.user %}
+      <a href="{{ url_for('user_dashboard') }}" class="block px-3 py-2 rounded hover:bg-pink-800">Dashboard</a>
+      <a href="{{ url_for('profile') }}" class="block px-3 py-2 rounded hover:bg-pink-800">Profile</a>
+      <a href="{{ url_for('logout') }}" class="block px-3 py-2 rounded hover:bg-pink-800">Logout</a>
+    {% else %}
+      <a href="{{ url_for('login') }}" class="bg-white text-pink-600 font-semibold px-4 py-2 rounded-full hover:bg-pink-100 transition text-center">
+        Login
+      </a>
+    {% endif %}
+  </div>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  });
+</script>

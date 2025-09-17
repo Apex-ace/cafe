@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Verify Login{% endblock %}
+
+{% block content %}
+<div class="min-h-[70vh] flex items-center justify-center px-4">
+  <div class="bg-white shadow-xl rounded-2xl w-full max-w-md p-8">
+    
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800"> Verify Your Code</h2>
+      <p class="text-gray-500 mt-2">
+        A code was sent to <strong class="text-gray-800">{{ email }}</strong>.  
+        Please enter it below.
+      </p>
+    </div>
+
+    <!-- OTP Form -->
+    <form method="post" class="space-y-4">
+      <!-- OTP Field -->
+      <div>
+        <label for="otp" class="block text-sm font-medium text-gray-700 mb-1">
+          One-Time Code
+        </label>
+        <div class="relative">
+          <input type="text" name="otp" id="otp" required placeholder="Enter 6-digit code"
+            class="w-full pl-10 pr-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-pink-500 focus:outline-none">
+          
+          <!-- Lock Icon -->
+          <span class="absolute inset-y-0 left-3 flex items-center text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 11c0-1.105.895-2 2-2s2 .895 2 2v1h-4v-1zM8 11V9a4 4 0 018 0v2h1a2 2 0 012 2v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6a2 2 0 012-2h1z" />
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit"
+        class="w-full bg-pink-600 text-white font-semibold py-2 rounded-lg hover:bg-pink-700 transition shadow-md">
+        Verify & Login
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

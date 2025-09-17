@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}Rutika's Bakery{% endblock %}</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  {% block head %}{% endblock %}
+</head>
+<body class="bg-gray-50 text-gray-800 font-[Poppins] flex flex-col min-h-screen">
+
+  <!-- Header / Navbar -->
+  <header id="main-header" class="fixed top-0 left-0 w-full bg-white shadow-sm z-50 transition duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="{{ url_for('index') }}" class="flex items-center space-x-2">
+        <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Rutika's Bakery Logo" class="h-10 w-auto">
+        <span class="font-playfair text-xl font-bold text-rose-600">Rutika's Bakery</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav id="main-nav" class="hidden md:flex space-x-6 font-medium text-gray-700">
+        <a href="{{ url_for('index') }}" class="hover:text-rose-600">Home</a>
+        <a href="{{ url_for('menu') }}" class="hover:text-rose-600">Menu</a>
+
+        <!-- Cart -->
+        <button class="relative hover:text-rose-600 view-cart-btn">
+          <i class='bx bx-cart text-2xl'></i>
+          <span class="cart-count absolute -top-1 -right-2 bg-rose-600 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">0</span>
+        </button>
+
+        {% if session.user %}
+          <a href="{{ url_for('user_dashboard') }}" class="hover:text-rose-600">Dashboard</a>
+          <a href="{{ url_for('profile') }}" class="hover:text-rose-600">Profile</a>
+          <a href="{{ url_for('logout') }}" class="hover:text-rose-600">Logout</a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="hover:text-rose-600">Customer Login</a>
+        {% endif %}
+        <a href="{{ url_for('admin_login') }}" class="hover:text-rose-600">Admin</a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button id="hamburger-btn" class="md:hidden text-2xl text-gray-700 focus:outline-none">
+        <i class='bx bx-menu'></i>
+      </button>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t shadow-md">
+      <nav class="flex flex-col space-y-2 p-4 font-medium">
+        <a href="{{ url_for('index') }}" class="hover:text-rose-600">Home</a>
+        <a href="{{ url_for('menu') }}" class="hover:text-rose-600">Menu</a>
+
+        <!-- Mobile Cart -->
+        <button class="relative hover:text-rose-600 view-cart-btn text-left p-2">
+          Cart
+          <span class="cart-count absolute top-2 right-2 bg-rose-600 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">0</span>
+        </button>
+
+        {% if session.user %}
+          <a href="{{ url_for('user_dashboard') }}" class="hover:text-rose-600">Dashboard</a>
+          <a href="{{ url_for('profile') }}" class="hover:text-rose-600">Profile</a>
+          <a href="{{ url_for('logout') }}" class="hover:text-rose-600">Logout</a>
+        {% else %}
+          <a href="{{ url_for('login') }}" class="hover:text-rose-600">Customer Login</a>
+        {% endif %}
+        <a href="{{ url_for('admin_login') }}" class="hover:text-rose-600">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Content -->
+  <main class="flex-grow pt-20">
+    {% include 'includes/_flashes.html' %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-200 mt-12">
+    <div class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <!-- About -->
+      <div>
+        <h4 class="text-xl font-semibold text-white mb-3">Rutika's Bakery</h4>
+        <p class="text-gray-400">Crafting moments of joy with every bite. Experience tradition and taste, perfected.</p>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <h4 class="text-xl font-semibold text-white mb-3">Quick Links</h4>
+        <ul class="space-y-2">
+          <li><a href="{{ url_for('menu') }}" class="hover:text-rose-400">Menu</a></li>
+          <li><a href="{{ url_for('user_dashboard') }}" class="hover:text-rose-400">Book Venue</a></li>
+          <li><a href="{{ url_for('admin_login') }}" class="hover:text-rose-400">Admin Login</a></li>
+        </ul>
+      </div>
+
+      <!-- Social -->
+      <div>
+        <h4 class="text-xl font-semibold text-white mb-3">Follow Us</h4>
+        <div class="flex space-x-4 text-2xl">
+          <a href="#" class="hover:text-rose-400"><i class='bx bxl-instagram'></i></a>
+          <a href="#" class="hover:text-rose-400"><i class='bx bxl-facebook-square'></i></a>
+          <a href="#" class="hover:text-rose-400"><i class='bx bxl-twitter'></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="bg-gray-800 py-4 text-center text-sm text-gray-400">
+      <p>&copy;Rutika's Bakery</p>
+    </div>
+  </footer>
+
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-lg w-11/12 max-w-lg p-6 relative">
+      <div class="flex justify-between items-center border-b pb-3 mb-4">
+        <h2 class="text-xl font-semibold text-gray-800">Your Cart</h2>
+        <button id="close-cart-btn" class="text-gray-500 hover:text-rose-600 text-3xl">&times;</button>
+      </div>
+      <div id="cart-items" class="space-y-3 text-left mb-4 max-h-60 overflow-y-auto"></div>
+      <div class="flex justify-between font-bold text-lg border-t pt-3 mb-4">
+        <span>Total:</span>
+        <span id="cart-total">₹0.00</span>
+      </div>
+      <form action="{{ url_for('place_order') }}" method="post" class="text-center">
+        <input type="hidden" name="items" id="order-items">
+        <button type="submit" class="w-full px-6 py-3 bg-rose-600 text-white font-semibold rounded-lg shadow-md hover:bg-rose-700 transition">Place Order</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      hamburgerBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      // Cart modal handling
+      const cartBtns = document.querySelectorAll('.view-cart-btn');
+      const cartModal = document.getElementById('cart-modal');
+      const closeCartBtn = document.getElementById('close-cart-btn');
+      cartBtns.forEach(btn => btn.addEventListener('click', () => {
+        cartModal.classList.remove('hidden');
+      }));
+      closeCartBtn.addEventListener('click', () => {
+        cartModal.classList.add('hidden');
+      });
+    });
+  </script>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

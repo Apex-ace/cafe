@@ -1,0 +1,149 @@
+/* =================================== */
+/* Rutika's Bakery - The Definitive Redesign */
+/* By a 40-Year Veteran Coder */
+/* =================================== */
+
+/* --- 1. Design System & Variables --- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+    --bg-color: #FFF8F0; /* Creamy Off-White */
+    --surface-color: #FFFFFF;
+    --primary-color: #8B4513; /* Saddle Brown / Rich Chocolate */
+    --secondary-color: #D2691E; /* Chocolate / Warm Brown */
+    --accent-color: #FFB6C1; /* Light Pink / Rose */
+    --accent-gold: #DAA520; /* Goldenrod */
+    --text-primary: #3D2B1F; /* Dark Brown */
+    --text-secondary: #7B6861;
+    
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Poppins', sans-serif;
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.15);
+    
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    
+    --transition-fast: all 0.2s ease-in-out;
+    --transition-slow: all 0.5s ease-in-out;
+}
+
+/* --- 2. Base & Typography --- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+main { flex-grow: 1; }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height: 1.2; margin-top: 0; }
+a { color: var(--secondary-color); text-decoration: none; transition: var(--transition-fast); }
+a:hover { color: var(--primary-color); }
+
+/* --- 3. Header & Navigation --- */
+header {
+    background-color: rgba(255, 248, 240, 0.8);
+    backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: var(--transition-slow);
+}
+header.scrolled { box-shadow: var(--shadow-md); }
+header .logo { height: 55px; }
+nav { display: flex; align-items: center; gap: 2.5rem; }
+nav a { font-weight: 500; position: relative; padding: 0.5rem 0; }
+nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--accent-gold); transition: width 0.3s ease; }
+nav a:hover::after { width: 100%; }
+.hamburger-btn { display: none; background: transparent; border: none; cursor: pointer; z-index: 1001; }
+.hamburger-btn i { font-size: 2.2rem; color: var(--text-primary); }
+
+/* --- 4. Reusable Components --- */
+.btn {
+    display: inline-block;
+    background: linear-gradient(45deg, var(--secondary-color), var(--accent-gold));
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition-slow);
+    box-shadow: var(--shadow-md);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.btn:hover { transform: translateY(-4px) scale(1.05); box-shadow: var(--shadow-lg); }
+.btn-full { width: 100%; }
+.card { background: var(--surface-color); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 2.5rem; margin-bottom: 2rem; }
+.form-container { max-width: 500px; margin: 2rem auto; }
+.form-group { margin-bottom: 1.5rem; position: relative; }
+.form-group label { display: block; margin-bottom: 0.75rem; font-weight: 600; font-size: 0.9rem; }
+.form-group i { position: absolute; left: 15px; top: calc(50% + 10px); color: #ccc; }
+.form-control { width: 100%; padding: 1rem; padding-left: 3rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-family: var(--font-body); font-size: 1rem; transition: var(--transition-fast); }
+.form-control:focus { outline: none; border-color: var(--accent-gold); box-shadow: 0 0 0 4px rgba(218, 165, 32, 0.15); }
+.page-header { text-align: center; margin-bottom: 3rem; }
+.page-title { font-size: clamp(2.5rem, 5vw, 4rem); }
+.page-subtitle { max-width: 600px; margin: 1rem auto 0; color: var(--text-secondary); }
+
+/* --- 5. Page-Specific Styles --- */
+/* Index Page */
+.hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.hero::before { content: ''; position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover; filter: brightness(0.4); z-index: 1; transform: scale(1.1); transition: transform 6s ease-out; }
+.hero.visible::before { transform: scale(1); }
+.hero-content { position: relative; z-index: 2; text-align: center; color: white; max-width: 800px; }
+.hero h1 { font-size: clamp(3rem, 7vw, 5.5rem); color: white; text-shadow: 0 4px 20px rgba(0,0,0,0.5); margin-bottom: 1.5rem; font-weight: 900; }
+.hero p { font-size: clamp(1.1rem, 2vw, 1.3rem); margin-bottom: 2.5rem; text-shadow: 0 2px 10px rgba(0,0,0,0.7); }
+
+/* Menu Page */
+.menu-controls { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; margin-bottom: 3rem; }
+.filter-btn { padding: 0.6rem 1.5rem; background: var(--surface-color); color: var(--text-secondary); border: 1px solid var(--border-color); border-radius: 50px; font-weight: 500; cursor: pointer; transition: var(--transition-fast); }
+.filter-btn:hover, .filter-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.product-card { background: var(--surface-color); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); transition: var(--transition-slow); }
+.product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+.product-image-wrapper { height: 250px; overflow: hidden; }
+.product-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease-in-out; }
+.product-card:hover img { transform: scale(1.1); }
+.product-card-content { padding: 1.5rem; text-align: center; }
+.product-card h3 { font-size: 1.5rem; margin: 0.5rem 0; }
+
+/* Admin Panel */
+.admin-container { display: flex; min-height: 100vh; }
+.admin-sidebar { width: 250px; background: #3a221f; color: #e0d8cd; padding: 2rem; flex-shrink: 0; }
+.admin-sidebar h2 { color: white; text-align: left; font-size: 1.5rem; }
+.admin-sidebar ul { list-style: none; padding: 0; margin-top: 2rem; }
+.admin-sidebar a { color: #e0d8cd; text-decoration: none; display: block; padding: 0.8rem 0; transition: color 0.3s; font-weight: 500; }
+.admin-sidebar a:hover { color: var(--accent-gold); }
+.admin-main { flex-grow: 1; padding: 2rem; background: var(--bg-color); }
+.table-wrapper { overflow-x: auto; }
+.admin-table { width: 100%; border-collapse: collapse; background: var(--surface-color); box-shadow: var(--shadow-md); border-radius: var(--radius-lg); overflow: hidden; min-width: 700px; }
+.admin-table th, .admin-table td { padding: 1.2rem; text-align: left; border-bottom: 1px solid var(--border-color); }
+.admin-table th { background-color: #f5efe6; }
+
+/* Animations & Transitions */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* --- 7. Responsive Design --- */
+@media (max-width: 768px) {
+    .hamburger-btn { display: block; }
+    nav { display: none; flex-direction: column; position: absolute; top: 100%; right: 0; background-color: white; width: 100%; box-shadow: 0 8px 16px rgba(0,0,0,0.1); border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
+    nav.active { display: flex; }
+    nav a { margin: 1.2rem; text-align: center; }
+    .page-title, .section-title, .hero h1 { font-size: 2.2rem; }
+    .admin-container { flex-direction: column; }
+    .admin-sidebar { width: 100%; min-height: auto; }
+}

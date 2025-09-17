@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %} {# <-- THIS IS THE FIX #}
+<div class="flex min-h-screen bg-gray-50 pt-16"> {# Added pt-16 to offset the fixed header #}
+
+  <aside class="w-64 bg-gray-900 text-white flex-col shadow-lg hidden md:flex">
+    <div class="px-6 py-4 border-b border-gray-700">
+      <h2 class="text-2xl font-bold tracking-wide">⚙️ Admin Panel</h2>
+    </div>
+
+    <nav class="flex-1 px-4 py-6 space-y-2">
+      <ul class="space-y-1">
+        <li>
+          <a href="{{ url_for('admin_dashboard') }}" class="block px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('admin_users') }}" class="block px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+            Users
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('admin_orders') }}" class="block px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+            Orders
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('admin_bookings') }}" class="block px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+            Bookings
+          </a>
+        </li>
+      </ul>
+
+      <hr class="border-gray-700 my-4">
+
+      <ul class="space-y-1">
+        <li>
+          <a href="{{ url_for('index') }}" class="block px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+            ← Back to Site
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('admin_logout') }}" class="block px-4 py-2 rounded-lg hover:bg-gray-800 transition text-red-400 hover:text-red-300">
+             Logout
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="flex-1 p-6">
+    {% include 'includes/_flashes.html' %}
+    <div class="bg-white shadow-md rounded-xl p-6">
+      {% block admin_content %}{% endblock %}
+    </div>
+  </main>
+</div>
+{% endblock %} {# <-- THIS IS THE FIX #}
+
+{% block scripts %}
+{% endblock %}
